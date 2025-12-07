@@ -59,8 +59,8 @@ public class DECODETeleopCarson extends LinearOpMode {
     private boolean turningRight = false;
     
     private ElapsedTime thirdBall = new ElapsedTime();
-    private DcMotor leftFrontDrive, rightFrontDrive, leftBackDrive, rightBackDrive;
-    private DcMotorEx leftShooter, rightShooter, intake;
+    private DcMotor leftFrontDrive, rightFrontDrive, leftBackDrive, rightBackDrive, intake;
+    private DcMotorEx leftShooter, rightShooter;
     private Servo leftBringUp, rightBringUp;
     
     private IMU imu;
@@ -103,7 +103,7 @@ public class DECODETeleopCarson extends LinearOpMode {
         rightBackDrive = hardwareMap.get(DcMotor.class, "rightBack");
         leftShooter = hardwareMap.get(DcMotorEx.class, "leftShooter");
         rightShooter = hardwareMap.get(DcMotorEx.class, "rightShooter");
-        intake = hardwareMap.get(DcMotorEx.class, "intake");
+        intake = hardwareMap.get(DcMotor.class, "intake");
         leftBringUp = hardwareMap.get(Servo.class, "leftBringUp");
         rightBringUp = hardwareMap.get(Servo.class, "rightBringUp");
         
@@ -119,7 +119,6 @@ public class DECODETeleopCarson extends LinearOpMode {
 
         leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
-        intake.setDirection(DcMotor.Direction.REVERSE);
         leftShooter.setDirection(DcMotor.Direction.REVERSE);
         
         leftShooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -440,10 +439,8 @@ public class DECODETeleopCarson extends LinearOpMode {
         if(feedingLeft || feedingRight) // Do not turn on intake while feeding
             return;
         
-        //gamepad2.rumbleBlips(1);  // Give rumble feedback to driver
-        
         // Turn on intake motor to in direction
-        intake.setDirection(DcMotor.Direction.FORWARD);
+        intake.setDirection(DcMotor.Direction.REVERSE);
         intake.setPower(FULL_POWER);
     }
 
